@@ -1,0 +1,129 @@
+package com.example.accontroller;
+
+import android.content.Context;
+import android.util.Log;
+
+import org.eclipse.paho.android.service.MqttAndroidClient;
+import org.eclipse.paho.client.mqttv3.DisconnectedBufferOptions;
+import org.eclipse.paho.client.mqttv3.IMqttActionListener;
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.IMqttToken;
+import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.internal.wire.MqttConnect;
+
+import java.util.UUID;
+
+public class MyMqttClient {
+    public MqttAndroidClient mqttAndroidClient;
+    final public int TOSUBCRIBE = 1;
+    final public int TOPUBLISH = 0;
+
+    final String defaultServer = "siot.eclipse.org";
+    final String defaultPort = "1883";
+
+    private int target = TOSUBCRIBE;
+    private String randomClientId;
+    private String opServer = defaultServer;
+    private String opUsername = "1";
+    private String opPassword = "12345678";
+    private String opPort;
+    private String defaultSubcribeTopic = "user/" + "k61iotlab" + "/" + 2 + "/+/+/+/data";
+    //            "user/k61iotlab/2/bedroom/humidity_sensor/68:c6:3a:c2:cc:64-1/data";
+            /*"user/" + "k61iotlab" + "/" + 2 + "/+/+/+/data";*/
+    /*"user/" + user + "/" + homeID + "/+/+/+/data"*/
+    /* mosquitto_pub -t "user/k61iotlab/2/bedroom/humidity_sensor/68:c6:3a:c2:cc:64-1/data" -m {\"room_humidity\":\"75\",\"installation_location\":\"bedroom\"}*/
+    private MqttConnectOptions mqttConnectOptions;
+
+
+    public MyMqttClient(Context context, String brokerAdd, String username, String password, int target){
+        randomClientId = UUID.randomUUID().toString();
+        Log.w("sss", brokerAdd);
+        opServer = "tcp://" + brokerAdd + ":"+ defaultPort;
+        mqttAndroidClient = new MqttAndroidClient(context,opServer,randomClientId);
+        mqttAndroidClient.setCallback(new MqttCallbackExtended() {
+            @Override
+            public void connectComplete(boolean b, String s)
+            {
+                Log.w("Mqttss", s);
+            }
+            @Override
+            public void connectionLost(Throwable throwable) {
+
+            }
+
+            @Override
+            public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
+                Log.w("Mqtt_MyMqttClient_java", mqttMessage.toString());
+            }
+
+            @Override
+            public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
+
+            }
+        });
+        connect();
+    }
+    public void setCallback(MqttCallbackExtended callback) {
+        mqttAndroidClient.setCallback(callback);
+    }
+
+    private void connect(){
+        MqttConnectOptions mqttConnectOptions = new MqttConnectOptions();
+        mqttConnectOptions.setAutomaticReconnect(true);
+        mqttConnectOptions.setCleanSession(false);
+        mqttConnectOptions.setUserName(opUsername);
+        mqttConnectOptions.setPassword(opPassword.toCharArray());
+
+        try {
+
+            mqttAndroidClient.connect(mqttConnectOptions, null, new IMqttActionListener() {
+                @Override
+                public void onSuccess(IMqttToken asyncActionToken) {
+
+                    DisconnectedBufferOptions disconnectedBufferOptions = new DisconnectedBufferOptions();
+                    disconnectedBufferOptions.setBufferEnabled(true);
+                    disconnectedBufferOptions.setBufferSize(100);
+                    disconnectedBufferOptions.setPersistBuffer(false);
+                    disconnectedBufferOptions.setDeleteOldestMessages(false);
+                    mqttAndroidClient.setBufferOpts(disconnectedBufferOptions);
+                    if(target == TOSUBCRIBE){
+                        subscribeToTopic();
+                    }
+                }
+
+                @Override
+                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                    Log.w("Mqtt_MyMqttClient_java", "Failed to connect to: " + opServer + exception.toString());
+                }
+            });
+
+
+        } catch (MqttException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    private void subscribeToTopic() {
+        try {
+            mqttAndroidClient.subscribe(defaultSubcribeTopic, 0, null, new IMqttActionListener() {
+                @Override
+                public void onSuccess(IMqttToken asyncActionToken)
+                {
+                    Log.w("Mqtt_MyMqttClient_java","Subscribed!");
+                }
+
+                @Override
+                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                    Log.w("Mqtt_MyMqttClient_java", "Subscribed fail!");
+                }
+            });
+
+        } catch (MqttException ex) {
+            System.err.println("Exceptionst subscribing");
+            ex.printStackTrace();
+        }
+    }
+}
