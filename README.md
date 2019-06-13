@@ -18,6 +18,6 @@ Giảm nhiệt độ
 --> Trong lúc ra lệnh cho ứng dụng bằng giọng nói, đồng thời ứng dụng cũng sẽ phản hồi lại với nguời dùng bằng giọng nữ có tên là "Android". Trả lời khi đã tiếp nhận yêu cầu, và thực hiện yeu cầu của nguời dùng., khi ra lệnh thất bại, khi cô ấy không hiểu lệnh nguời dùng, giới thiệu mình,....
 Lệnh yêu cầu từ nguời dùng về các chức năng ở trên không nhất thiết phải đúng theo y hệt cấu trúc một câu nào mà có thế là một số câu tương tự (Em xử lí bằng cách bắt các hot key từ quan trọng rồi lại bắt tiếp các hot key khác liên quan đến nó ... từ đó suy ra lệnh)
 - Link youtube demo: https://youtu.be/HvillaKcLvc ( demo có kèm giả lập điều hoà trong ngôi nhà thông minh)
-(Bổ sung: videohttps://www.youtube.com/watch?v=Zdbz-gcTUx4 này có thêm lệnh vừa yêu cầu bật điều hoà lẫn chuyển chế độ. mà ở video ở trên không có)
+(Bổ sung: video https://www.youtube.com/watch?v=Zdbz-gcTUx4 này có thêm lệnh vừa yêu cầu bật điều hoà lẫn chuyển chế độ. mà ở video ở trên không có)
 -Em không đăng kèm code Homegateway~IoTplatform vì đây là sản phẩm của nhóm lab IoT em thực hiện. nhưng có chạy kèm code demo trong video đầu tiên
 --> Dự kiến sắp tới sẽ làm xác thực giọng nói của đúng nguời dùng bằng snowboy, hoặc pocketsphix
