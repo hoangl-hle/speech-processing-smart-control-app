@@ -20,3 +20,4 @@ Lệnh yêu cầu từ nguời dùng về các chức năng ở trên không nh�
 - Link youtube demo: https://youtu.be/HvillaKcLvc ( demo có kèm giả lập điều hoà trong ngôi nhà thông minh)
 (Bổ sung: videohttps://www.youtube.com/watch?v=Zdbz-gcTUx4 này có thêm lệnh vừa yêu cầu bật điều hoà lẫn chuyển chế độ. mà ở video ở trên không có)
 -Em không đăng kèm code Homegateway~IoTplatform vì đây là sản phẩm của nhóm lab IoT em thực hiện. nhưng có chạy kèm code demo trong video đầu tiên
+--> Dự kiến sắp tới sẽ làm xác thực giọng nói của đúng nguời dùng bằng snowboy, hoặc pocketsphix
