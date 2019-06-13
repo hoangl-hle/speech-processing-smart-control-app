@@ -7,7 +7,7 @@ Ex speech processing at university - smart control app for smart home
 
 Ứng dụng giao tiếp với ứng dụng HomeGateway của IoTplatform bằng giao thức MQTT
 HomeGateway giao tiếp với thiết bị (điều hòa) trong nhà thông minh bằng giao thức Echonet lite em đã tìm hiểu trong quá trình tham gia nghiên cứu ở lab ( giao thức của các thiết bị thông minh được các công ty Nhật sử dụng). 
-Ở đây em sẽ giả lập nhà thông minh bằng  MoekadenRoom (https://github.com/SonyCSL/MoekadenRoom) của MIT Sony để demo sản phẩm. 
+Ở đây em sẽ giả lập nhà thông minh bằng  MoekadenRoom (https://github.com/SonyCSL/MoekadenRoom) của MIT Sony để demo sản phẩm.  (để chay giả lập trên cùng một máy tính thì cần chạy nó trên máy ảo và mở NAT của mạng máy ảo do HomegateWay và MoekadenRoom chạy cùng port).
 Người dùng ra lệnh cho "Robot" có tên là "Android" bằng khẩu lệnh "Android" kèm với Mệnh lệnh đi kèm. Mệnh lệnh đi kèm có thể là :
 Bật điều hoà
 Tắt điều hoà
